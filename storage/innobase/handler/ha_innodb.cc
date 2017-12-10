@@ -15733,7 +15733,7 @@ innodb_show_status(
 	stat_print_fn*	stat_print)
 {
 	static const char	truncated_msg[] = "... truncated...\n";
-	const long		MAX_STATUS_SIZE = 1048576;
+	const long		MAX_STATUS_SIZE = srv_print_max_status_size;
 	ulint			trx_list_start = ULINT_UNDEFINED;
 	ulint			trx_list_end = ULINT_UNDEFINED;
 	bool			ret_val;
@@ -20082,6 +20082,16 @@ static MYSQL_SYSVAR_BOOL(status_output_locks, srv_print_innodb_lock_monitor,
   " Requires innodb_status_output=ON.",
   NULL, innodb_status_output_update, FALSE);
 
+static MYSQL_SYSVAR_ULONG(status_output_locks_limit, srv_print_locks_limit,
+	PLUGIN_VAR_OPCMDARG,
+	"Max locks for printing.",
+	NULL, NULL, 10, 0, LONG_MAX, 0);
+
+static MYSQL_SYSVAR_ULONG(max_status_size, srv_print_max_status_size,
+	PLUGIN_VAR_OPCMDARG,
+	"Max status size for printing.",
+	NULL, NULL, 1048576, 0, LONG_MAX, 0);
+
 static MYSQL_SYSVAR_BOOL(print_all_deadlocks, srv_print_all_deadlocks,
   PLUGIN_VAR_OPCMDARG,
   "Print all deadlocks to MySQL error log (off by default)",
@@ -20322,6 +20332,8 @@ static struct st_mysql_sys_var* innobase_system_variables[]= {
 #endif /* defined UNIV_DEBUG || defined UNIV_PERF_DEBUG */
   MYSQL_SYSVAR(status_output),
   MYSQL_SYSVAR(status_output_locks),
+  MYSQL_SYSVAR(status_output_locks_limit),
+  MYSQL_SYSVAR(max_status_size),
   MYSQL_SYSVAR(print_all_deadlocks),
   MYSQL_SYSVAR(cmp_per_index_enabled),
   MYSQL_SYSVAR(undo_logs),

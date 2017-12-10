@@ -399,6 +399,8 @@ extern ulong	srv_replication_delay;
 extern my_bool	srv_print_innodb_monitor;
 extern my_bool	srv_print_innodb_lock_monitor;
 extern ibool	srv_print_verbose_log;
+extern ulong    srv_print_locks_limit;
+extern ulong    srv_print_max_status_size;
 
 extern ibool	srv_monitor_active;
 extern ibool	srv_error_monitor_active;

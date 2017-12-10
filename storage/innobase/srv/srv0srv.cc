@@ -284,6 +284,14 @@ in the buffer cache and accessed sequentially for InnoDB to trigger a
 readahead request. */
 ulong	srv_read_ahead_threshold	= 56;
 
+/* Max locks for printing.
+*/
+ulong srv_print_locks_limit = 10;
+
+/* max status size for print engine status information
+*/
+ulong srv_print_max_status_size = 1048576;
+
 /** Maximum on-disk size of change buffer in terms of percentage
 of the buffer pool. */
 uint	srv_change_buffer_max_size = CHANGE_BUFFER_DEFAULT_SIZE;

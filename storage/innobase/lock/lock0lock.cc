@@ -5177,11 +5177,11 @@ lock_trx_print_locks(
 			lock_table_print(file, lock);
 		}
 
-		if (iter.next() >= 10) {
+		if (iter.next() >= srv_print_locks_limit) {
 
 			fprintf(file,
-				"10 LOCKS PRINTED FOR THIS TRX:"
-				" SUPPRESSING FURTHER PRINTS\n");
+				"%d LOCKS PRINTED FOR THIS TRX:"
+				" SUPPRESSING FURTHER PRINTS\n", srv_print_locks_limit);
 
 			break;
 		}
